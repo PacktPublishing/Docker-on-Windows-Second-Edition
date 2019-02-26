@@ -1,0 +1,105 @@
+version: '3.7'
+
+services:
+  
+  reverse-proxy:
+    command: --docker --docker.swarmMode --docker.watch --docker.endpoint=tcp://win2019-dev-02:2376 --docker.tls.ca=/certs/ca.pem --docker.tls.cert=/certs/cert.pem --docker.tls.key=/certs/key.pem --api
+    ports:
+      - "80:80"
+      - "8080:8080"
+    secrets:
+      - source: docker-client-ca
+        target: C:\certs\ca.pem
+      - source: docker-client-cert
+        target: C:\certs\cert.pem
+      - source: docker-client-key
+        target: C:\certs\key.pem
+    deploy:
+      placement:
+        constraints:
+          - node.role == manager
+
+  kibana:
+    deploy:
+      labels:
+        - "traefik.frontend.rule=Host:kibana.nerddinner.swarm"
+        - "traefik.port=5601"
+
+  nerd-dinner-db:
+    secrets:
+      - source: nerd-dinner-db-sa-password
+        target: C:\secrets\sa-password
+
+  nerd-dinner-save-handler:
+    secrets:
+      - source: nerd-dinner-save-handler-secrets
+        target: C:\save-handler\config\secrets.json
+    deploy:
+      replicas: 3
+
+  nerd-dinner-index-handler:
+    deploy:
+      replicas: 2
+
+  nerd-dinner-api:
+    configs:
+      - source: nerd-dinner-api-config
+        target: C:\dinner-api\config\config.json
+    secrets:
+      - source: nerd-dinner-api-secrets
+        target: C:\dinner-api\config\secrets.json
+    deploy:
+      labels:
+        - "traefik.frontend.rule=Host:api.nerddinner.swarm"
+        - "traefik.port=80"
+      replicas: 2
+
+  nerd-dinner-homepage:
+    deploy:
+      labels:
+        - "traefik.frontend.rule=Host:nerddinner.swarm;Path:/,/css/site.css"
+        - "traefik.frontend.priority=10"
+        - "traefik.port=80"
+      replicas: 2
+
+  nerd-dinner-web:
+    configs:
+      - source: nerd-dinner-config
+        target: C:\nerd-dinner\config\config.json
+    secrets:
+      - source: nerd-dinner-secrets
+        target: C:\nerd-dinner\config\secrets.json
+    deploy:
+      labels:
+        - "traefik.frontend.rule=Host:nerddinner.swarm;PathPrefix:/"
+        - "traefik.frontend.priority=1"
+        - "traefik.backend.loadbalancer.stickiness=true"
+        - "traefik.port=80"
+      replicas: 2
+
+networks:
+  nd-net:
+    external:
+      name: nd-swarm
+
+configs:
+  nerd-dinner-api-config:
+    external: true
+  nerd-dinner-config:
+    external: true
+
+secrets:
+  docker-client-ca:
+    external: true
+  docker-client-cert:
+    external: true
+  docker-client-key:
+    external: true
+  nerd-dinner-db-sa-password:
+    external: true
+  nerd-dinner-save-handler-secrets:
+    external: true
+  nerd-dinner-api-secrets:
+    external: true
+  nerd-dinner-secrets:
+    external: true

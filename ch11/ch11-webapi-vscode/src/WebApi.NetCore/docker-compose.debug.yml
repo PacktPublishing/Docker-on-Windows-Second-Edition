@@ -1,0 +1,22 @@
+version: '3.7'
+
+services:
+  webapi:
+    build:
+      args:
+        CONFIGURATION: Debug
+    ports:
+      - "8081:80"
+    labels:
+      - "com.microsoft.visualstudio.targetoperatingsystem=windows"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - DOTNET_USE_POLLING_FILE_WATCHER=1
+    volumes:
+      - .\bin\Debug\netcoreapp2.2:C:\app
+      - ~\.vscode\extensions\ms-vscode.csharp-1.17.1\.debugger:C:\vsdbg:ro
+
+networks:
+  app-net:
+    external:
+      name: nat 

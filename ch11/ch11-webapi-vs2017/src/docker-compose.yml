@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  webapi.netfx:
+    image: ${DOCKER_REGISTRY-}webapinetfx
+    build:
+      context: .\WebApi.NetFx
+      dockerfile: Dockerfile

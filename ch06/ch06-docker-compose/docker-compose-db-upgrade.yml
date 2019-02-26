@@ -1,0 +1,6 @@
+version: '3.7'
+
+services:
+  
+  nerd-dinner-db:
+    image: dockeronwindows/ch06-nerd-dinner-db:2e
