@@ -1,3 +1,8 @@
+## $5 Tech Unlocked 2021!
+[Buy and download this product for only $5 on PacktPub.com](https://www.packtpub.com/)
+-----
+*The $5 campaign         runs from __December 15th 2020__ to __January 13th 2021.__*
+
 # Docker on Windows - Second Edition
 
 <a href="https://www.packtpub.com/virtualization-and-cloud/docker-windows-second-edition?utm_source=github&utm_medium=repository&utm_campaign=9781789617375 "><img src="https://d1ldz4te4covpm.cloudfront.net/sites/default/files/imagecache/ppv4_main_book_cover/Coverfile.png" alt="Docker on Windows - Second Edition" height="256px" align="right"></a>
@@ -7,7 +12,7 @@ This is the code repository for [Docker on Windows - Second Edition](https://www
 **From 101 to production with Docker on Windows**
 
 ## What is this book about?
-Docker on Windows, Second Edition teaches you all you need to know about Docker on Windows, from the 101 to running highly-available workloads in production. You’ll be guided through a Docker journey, starting with the key concepts and simple examples of .NET Framework and .NET Core apps in Docker containers on Windows. Then you’ll learn how to use Docker to modernize the architecture and development of traditional ASP.NET and SQL Server apps.
+Docker on Windows, Second Edition teaches you all you need to know about Docker on Windows, from the 101 to running highly-available workloads in production. Youâ€™ll be guided through a Docker journey, starting with the key concepts and simple examples of .NET Framework and .NET Core apps in Docker containers on Windows. Then youâ€™ll learn how to use Docker to modernize the architecture and development of traditional ASP.NET and SQL Server apps.
 
 This book covers the following exciting features:
 * Understand key Docker concepts: images, containers, registries and swarms 
